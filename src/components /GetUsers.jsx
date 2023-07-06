@@ -47,14 +47,16 @@ function GetUsers(){
     }
 
     return (
-        <div className='user-list'>
-            {users.map((user)=>(
-                <div className='user-card' key={user.first_name}>
-                    <img className='user-avatar' src={user.avatar}alt="logo" />
-                    <div className='user-info'> {user.first_name} {user.last_name}</div>
-                    <div className='user-info'>{user.email}</div>
-                </div>
-            ))}
+        <div>
+            <div className='user-list'>
+                {users.map((user)=>(
+                    <div className='user-card' key={user.first_name}>
+                        <img className='user-avatar' src={user.avatar}alt="logo" />
+                        <div className='user-info'> {user.first_name} {user.last_name}</div>
+                        <div className='user-info'>{user.email}</div>
+                    </div>
+                ))}
+            </div>
             <div>
                 <button className='button' onClick={()=> RandomNames(users)}>Random</button>
                 <button className='button' onClick={()=> Reset() }>Reset</button>
