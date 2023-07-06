@@ -5,6 +5,7 @@ function GetUsers(){
     const [refresh, setRefresh] = useState(false);
 
     useEffect(()=> {
+
         if(users.length === 0){
             async function ApiCall(){
                 try{
@@ -21,6 +22,7 @@ function GetUsers(){
     },[users]);
 
     function RandomNames(users){
+        
         const last_Name = users.map(function (user){
             return user.last_name;
         });
