@@ -2,8 +2,7 @@ import {useState, useEffect} from 'react';
 
 function GetUsers(){
     const [users, setUsers] = useState(JSON.parse(localStorage.getItem('listusers')) || []);
-    const [refresh, setRefresh] = useState(false);
-
+    
     useEffect(()=> {
 
         if(users.length === 0){
@@ -20,30 +19,41 @@ function GetUsers(){
             ApiCall();
         }
     },[users]);
+  
+    function FisherYatesShuffle(user){
+          for (let i = user.length -1; i > 0; i--){
+            let j = Math.floor(Math.random()*(i+1));
+            let temporary = user[i];
+            user[i] = user[j] ;
+            user[j] = temporary;}
+    }
 
     function RandomNames(users){
-        
+        const first_Name = users.map(function(user){
+            return user.first_name;
+        });
+        FisherYatesShuffle(first_Name);
+
         const last_Name = users.map(function (user){
             return user.last_name;
         });
+        FisherYatesShuffle(last_Name);
 
-        for (let i = last_Name.length -1; i > 0; i--){
-            let j = Math.floor(Math.random()*(i+1));
-            var temporaryLatsName = last_Name[i];
-            last_Name[i]=last_Name[j] ;
-            last_Name[j]=temporaryLatsName;}
+        const email = users.map(function(user){
+            return user.email;
+        });
+        FisherYatesShuffle(email);
         
         users.forEach(function(user, index){
+            user.first_name = first_Name[index];
             user.last_name = last_Name[index];
+            user.email = email[index];
             setUsers([...users])
-            localStorage.setItem('listusers', JSON.stringify(users))
         }); 
     }
 
     const Reset = ()=>{
-        localStorage.clear()
         window.location.reload();
-        setRefresh(true)
     }
 
     return (
