@@ -43,11 +43,17 @@ function GetUsers(){
             return user.email;
         });
         FisherYatesShuffle(email);
+
+        const avatar = users.map(function(user){
+            return user.avatar;
+        });
+        FisherYatesShuffle(avatar);
         
         users.forEach(function(user, index){
             user.first_name = first_Name[index];
             user.last_name = last_Name[index];
             user.email = email[index];
+            user.avatar = avatar[index];
             setUsers([...users])
         }); 
     }
