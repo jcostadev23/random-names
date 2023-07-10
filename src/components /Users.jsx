@@ -3,10 +3,10 @@ import  RandomUsers from './Random';
 
 function GetUsers(){
     const [users, setUsers] = useState(JSON.parse(localStorage.getItem('listusers')) || []);
-    const [randomUsers, setRandomUsers] = useState(users.map(users=>({...users})));
-    
+    const [randomUsers, setRandomUsers] = useState(users);
+ 
     useEffect(()=> {
-        if(randomUsers.length === 0){
+        if(users.length === 0){
             async function ApiCall(){
                 try{
                     const resp = await fetch('https://reqres.in/api/users');
@@ -19,17 +19,22 @@ function GetUsers(){
             };
             ApiCall();
         }
-    },[randomUsers]);
+    },[users])
+
+    const Random = ()=>{
+        const shaffoldUsers = RandomUsers(randomUsers)
+        setRandomUsers(shaffoldUsers)
+    }
 
     const Reset = ()=>{
-        setRandomUsers(users.map(users=>({...users})));
+        setRandomUsers(users)
     }
 
     const Clear = ()=>{
         localStorage.clear()
-        //not rerender yet
+        setUsers(JSON.parse(localStorage.getItem('listusers')) || [])
     }
-
+   
     return (
         <div>
             <div className='user-list'>
@@ -42,7 +47,7 @@ function GetUsers(){
                 ))}
             </div>
             <div>
-                <button className='button' onClick={()=> setRandomUsers(RandomUsers(randomUsers))}>Random</button>
+                <button className='button' onClick={()=> Random()}>Random</button>
                 <button className='button' onClick={()=> Reset() }>Reset</button>
             </div>
             <button className='button' onClick={()=> Clear() }>Clear Storeage</button>

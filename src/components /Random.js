@@ -1,40 +1,29 @@
-function FisherYatesShuffle(users){
-    const randomUsers = users
+function Shaffold(users){
+    const randomUsers = [...users]
+
     for (let i = randomUsers.length -1; i > 0; i--){
-      let j = Math.floor(Math.random()*(i+1));
-      let temporary = randomUsers[i];
-      randomUsers[i] = randomUsers[j] ;
-      randomUsers[j] = temporary;}
+      let j = Math.floor(Math.random()*(i+1))
+      let temporary = randomUsers[i]
+      randomUsers[i] = randomUsers[j]
+      randomUsers[j] = temporary}
+      return randomUsers
 }
 
 function RandomUsers(users){
-    const randomUsers = [...users];
-    const firstName = randomUsers.map(function(user){
-        return user.first_name;
-    });
-    FisherYatesShuffle(firstName);
+    const firstName = Shaffold(users.map((user)=> user.first_name))
+    const lastName = Shaffold(users.map( (user)=> user.last_name))
+    const email = Shaffold(users.map((user)=> user.email))
+    const avatar =  Shaffold(users.map((user)=> user.avatar))
 
-    const lastName = randomUsers.map(function (user){
-        return user.last_name;
-    });
-    FisherYatesShuffle(lastName);
+    const randomUsers = users.map((user, index)=>({
+        ...user,
+        first_name: firstName[index],
+        last_name: lastName[index],
+        email: email[index],
+        avatar: avatar[index],
+    })); 
 
-    const email = randomUsers.map(function(user){
-        return user.email;
-    });
-    FisherYatesShuffle(email);
-
-    const avatar = randomUsers.map(function(user){
-        return user.avatar;
-    });
-    FisherYatesShuffle(avatar);
-    
-    randomUsers.forEach(function(user, index){
-        user.first_name = firstName[index];
-        user.last_name = lastName[index];
-        user.email = email[index];
-        user.avatar = avatar[index];
-    }); 
-    return randomUsers;
+    return randomUsers
 }
-export default  RandomUsers;
+
+export default  RandomUsers
