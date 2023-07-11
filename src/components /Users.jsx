@@ -1,5 +1,5 @@
 import {useState, useEffect} from 'react';
-import  RandomUsers from './Random';
+import RandomElements from './Random';
 
 function GetUsers(){
     const [users, setUsers] = useState(JSON.parse(localStorage.getItem('listusers')) || []);
@@ -21,16 +21,16 @@ function GetUsers(){
         }
     },[users])
 
-    const Random = ()=>{
-        const shaffoldUsers = RandomUsers(randomUsers)
-        setRandomUsers(shaffoldUsers)
+    const random = ()=>{
+        const random = RandomElements(randomUsers)
+        setRandomUsers(random)
     }
 
-    const Reset = ()=>{
+    const reset = ()=>{
         setRandomUsers(users)
     }
 
-    const Clear = ()=>{
+    const clear = ()=>{
         localStorage.clear()
         setUsers(JSON.parse(localStorage.getItem('listusers')) || [])
     }
@@ -47,10 +47,10 @@ function GetUsers(){
                 ))}
             </div>
             <div>
-                <button className='button' onClick={()=> Random()}>Random</button>
-                <button className='button' onClick={()=> Reset() }>Reset</button>
+                <button className='button' onClick={()=> random()}>Random</button>
+                <button className='button' onClick={()=> reset() }>Reset</button>
             </div>
-            <button className='button' onClick={()=> Clear() }>Clear Storeage</button>
+            <button className='button' onClick={()=> clear() }>Clear Storeage</button>
         </div>
     )
 }

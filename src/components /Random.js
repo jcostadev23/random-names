@@ -1,29 +1,29 @@
-function Shaffold(users){
-    const randomUsers = [...users]
+function Random(array){
+    const random = [...array]
 
-    for (let i = randomUsers.length -1; i > 0; i--){
+    for (let i = random.length -1; i > 0; i--){
       let j = Math.floor(Math.random()*(i+1))
-      let temporary = randomUsers[i]
-      randomUsers[i] = randomUsers[j]
-      randomUsers[j] = temporary}
-      return randomUsers
+      let temporary = random[i]
+      random[i] = random[j]
+      random[j] = temporary}
+      return random
 }
 
-function RandomUsers(users){
-    const firstName = Shaffold(users.map((user)=> user.first_name))
-    const lastName = Shaffold(users.map( (user)=> user.last_name))
-    const email = Shaffold(users.map((user)=> user.email))
-    const avatar =  Shaffold(users.map((user)=> user.avatar))
+function RandomElements(array){
+    const firstName = Random(array.map((element)=> element.first_name))
+    const lastName = Random(array.map( (element)=> element.last_name))
+    const email = Random(array.map((element)=> element.email))
+    const avatar =  Random(array.map((element)=> element.avatar))
 
-    const randomUsers = users.map((user, index)=>({
-        ...user,
+    const random = array.map((element, index)=>({
+        ...element,
         first_name: firstName[index],
         last_name: lastName[index],
         email: email[index],
         avatar: avatar[index],
     })); 
 
-    return randomUsers
+    return random
 }
 
-export default  RandomUsers
+export default  RandomElements
