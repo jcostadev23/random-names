@@ -9,7 +9,7 @@ function Random(array){
       return random
 }
 
-function RandomElements(array){
+function randomElements(array){
     const firstName = Random(array.map((element)=> element.first_name))
     const lastName = Random(array.map( (element)=> element.last_name))
     const email = Random(array.map((element)=> element.email))
@@ -26,4 +26,4 @@ function RandomElements(array){
     return random
 }
 
-export default  RandomElements
+export default  randomElements

@@ -1,39 +1,19 @@
-import {useState, useEffect} from 'react';
-import RandomElements from './Random';
+import { useState, useEffect } from 'react';
+import { random, reset, clear } from './Users.logic';
+import { apiCall } from './Users.logic';
 
-function GetUsers(){
+function Users(){
     const [users, setUsers] = useState(JSON.parse(localStorage.getItem('listusers')) || []);
     const [randomUsers, setRandomUsers] = useState(users);
  
     useEffect(()=> {
         if(users.length === 0){
-            async function ApiCall(){
-                try{
-                    const resp = await fetch('https://reqres.in/api/users');
-                    const listUsers = await resp.json();
-                    setUsers(listUsers.data)
-                    localStorage.setItem('listusers', JSON.stringify(listUsers.data));
-                }catch (error){
-                    console.log('error no fetch');
-                }
-            };
-            ApiCall();
+            apiCall()
+                .then(users => {
+                    setUsers(users);
+                });
         }
     },[users])
-
-    const random = ()=>{
-        const random = RandomElements(randomUsers)
-        setRandomUsers(random)
-    }
-
-    const reset = ()=>{
-        setRandomUsers(users)
-    }
-
-    const clear = ()=>{
-        localStorage.clear()
-        setUsers(JSON.parse(localStorage.getItem('listusers')) || [])
-    }
    
     return (
         <div>
@@ -47,11 +27,11 @@ function GetUsers(){
                 ))}
             </div>
             <div>
-                <button className='button' onClick={()=> random()}>Random</button>
-                <button className='button' onClick={()=> reset() }>Reset</button>
+                <button className='button' onClick={()=> random({randomUsers, setRandomUsers})}>Random</button>
+                <button className='button' onClick={()=> reset({users, setRandomUsers}) }>Reset</button>
             </div>
-            <button className='button' onClick={()=> clear() }>Clear Storeage</button>
+            <button className='button' onClick={()=> clear(setUsers) }>Clear Storeage</button>
         </div>
     )
 }
-export default GetUsers;
+export default Users;

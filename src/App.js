@@ -1,13 +1,13 @@
 import './App.css';
-import GetUsers from './components /Users';
+import Users from './components /Users';
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        Random Last Names
+        Random
       </header>
-      <GetUsers/>
+      <Users/>
     </div>
   );
 }
